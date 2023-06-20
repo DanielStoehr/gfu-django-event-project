@@ -1,6 +1,10 @@
-from django.db import models
-from django.utils.translation import gettext_lazy as _
 from django.contrib.auth import get_user_model
+from django.core.validators import MinLengthValidator
+from django.db import models
+from django.urls import reverse
+from django.utils.text import slugify
+from django.utils.translation import gettext_lazy as _
+from events.validators import BadWordFilter, datetime_in_future
 
 # Create your models here.
 User = get_user_model()
@@ -50,15 +54,22 @@ class Event(DateTimeMixin):
         MEDIUM = 10, _("Mittelgroße Gruppe")
         BIG = 15, _("Große Gruppe")
 
-    name = models.CharField(max_length=100, unique=True, verbose_name=_("Name"))
+    name = models.CharField(
+        max_length=100,
+        unique=True,
+        verbose_name=_("Name"),
+        validators=[MinLengthValidator(3)],
+    )
+    slug = models.SlugField(unique=True)
     sub_title = models.CharField(max_length=200, blank=True, null=True)
     description = models.TextField(
         blank=True,
         null=True,
         help_text=_("Eine Beschreibung für ein Event"),
         verbose_name="Beschreibung",
+        validators=[BadWordFilter(["evil"])],
     )
-    date = models.DateTimeField()
+    date = models.DateTimeField(validators=[datetime_in_future])
     is_active = models.BooleanField(default=True)
     min_group = models.IntegerField(choices=GroupSize.choices)
     category = models.ForeignKey(
@@ -73,3 +84,23 @@ class Event(DateTimeMixin):
 
     def __str__(self):
         return self.name
+
+    def get_absolute_url(self):
+        return reverse("events:event_detail", args=(self.pk,))
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.name)
+
+        super().save(*args, **kwargs)
+
+    @property
+    def related_events(self):
+        """
+        Ähnliche Events zu einem Event
+        gleiche Gruppe, gleiche Mindestgröße
+        """
+        related_events = Event.objects.filter(
+            category=self.category, min_group=self.min_group
+        )
+        return related_events.exclude(pk=self.pk)[:10]

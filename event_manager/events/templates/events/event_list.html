@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block head %}
+<h1>{% trans 'Event Übersicht' %}</h1>
+{% endblock %}
+
+{% block content %}
+<p><a href="{% url 'events:event_create' %}">Event hinzufügen</a></p>
+
+<ul class="list-group event_box">
+    {% for event in events %}
+    <a href="{% url 'events:event_detail' event.pk %}">
+        <li class="list-group-item rounded">
+            <small><span>am {{event.date}}</span></small><br>
+            <b>{{event}}</b>
+            <span class="badge rounded-pill bg-primary">{{event.category}}</span>
+            <p>by {{event.author}}</p>
+        </li>
+    </a>
+    {% endfor %}
+</ul>
+{% endblock %}

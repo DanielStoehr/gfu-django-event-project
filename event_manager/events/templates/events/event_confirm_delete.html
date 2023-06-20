@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+{% block head %}
+<h1>{% trans 'Event löschen' %}</h1>
+{% endblock %}
+
+{% block content %}
+<p>{% trans 'Sicher das Event löschen?' %}</p>
+<form method="post">
+    {% csrf_token %}
+    {{form | crispy}}
+    <button type="submit" class="btn btn-primary">{% trans 'Event löschen' %}</button>
+</form>
+{% endblock %}

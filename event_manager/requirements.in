@@ -1,2 +1,6 @@
 django==4.2.2
 whitenoise
+django-import-export
+django-crispy-forms
+crispy-bootstrap5
+python-gettext

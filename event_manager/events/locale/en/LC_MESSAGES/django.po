@@ -1,0 +1,132 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-06-20 14:16+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: admin.py:61
+msgid "Setzte Events aktiv"
+msgstr ""
+
+#: admin.py:68
+msgid "Setzte Events inaktiv"
+msgstr ""
+
+#: management/commands/create_events.py:19
+msgid "Anzahl der Events, die generiert werden sollen"
+msgstr ""
+
+#: management/commands/create_events.py:27
+msgid "Anzahl der Kategorien, die generiert werden sollen"
+msgstr ""
+
+#: models.py:28
+msgid "Eine Beschreibung für die Kategorie"
+msgstr ""
+
+#: models.py:38
+msgid "Kategorie"
+msgstr ""
+
+#: models.py:39
+msgid "Kategorien"
+msgstr ""
+
+#: models.py:52
+msgid "kleine Gruppe"
+msgstr ""
+
+#: models.py:53
+msgid "Mittelgroße Gruppe"
+msgstr ""
+
+#: models.py:54
+msgid "Große Gruppe"
+msgstr ""
+
+#: models.py:59
+msgid "Name"
+msgstr ""
+
+#: models.py:66
+msgid "Eine Beschreibung für ein Event"
+msgstr ""
+
+#: models.py:80
+msgid "Event"
+msgstr ""
+
+#: models.py:81
+msgid "Events"
+msgstr ""
+
+#: templates/events/event_confirm_delete.html:6
+#: templates/events/event_confirm_delete.html:14
+msgid "Event löschen"
+msgstr ""
+
+#: templates/events/event_confirm_delete.html:10
+msgid "Sicher das Event löschen?"
+msgstr ""
+
+#: templates/events/event_detail.html:12
+msgid "editieren"
+msgstr ""
+
+#: templates/events/event_detail.html:13
+msgid "löschen"
+msgstr ""
+
+#: templates/events/event_detail.html:18
+msgid "Ähnliche Events"
+msgstr ""
+
+#: templates/events/event_detail.html:22
+msgid "keine ähnlichen Events gefunden."
+msgstr ""
+
+#: templates/events/event_form.html:7
+msgid "Event ändern"
+msgstr ""
+
+#: templates/events/event_form.html:9
+msgid "Event anlegen"
+msgstr ""
+
+#: templates/events/event_list.html:5
+msgid "Event Übersicht"
+msgstr "Event Overview"
+
+#: validators.py:11
+msgid "Datum darf nicht in der Vergangenheit liegen"
+msgstr ""
+
+#: validators.py:21
+msgid "Du hast ein böses Wort benutzt:"
+msgstr "You have used a bad word"
+
+#: views.py:49
+msgid "Event wurde erfolgreich hinzugefügt!"
+msgstr ""
+
+#: views.py:59
+msgid "Event wurde erfolgreich geändert!"
+msgstr ""
+
+#: views.py:68
+msgid "Event wurde erfolgreich gelöscht"
+msgstr ""

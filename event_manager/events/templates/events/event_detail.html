@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block head %}
+<h1>{{event}}</h1>
+{% endblock %}
+
+{% block content %}
+<p>
+    <a href="{% url 'events:events' %}">zurück zur Übersicht</a>
+    {% if request.user == event.author %}
+    <a href="{% url 'events:event_update' event.pk %}">{% trans 'editieren' %}</a>
+    <a href="{% url 'events:event_delete' event.pk %}">{% trans 'löschen' %}</a>
+    {% endif %}
+</p>
+<p>{{ event.sub_title | default:"-" }}</p>
+
+<h2>{% trans 'Ähnliche Events' %}</h2>
+{% for event in object.related_events %}
+<li>{{event}}</li>
+{% empty %}
+<i>{% trans 'keine ähnlichen Events gefunden.' %}</i>
+{% endfor %}
+{% endblock %}

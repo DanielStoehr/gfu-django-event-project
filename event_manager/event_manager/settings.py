@@ -12,6 +12,9 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 
+from django.contrib.messages import constants as messages
+from django.utils.translation import gettext_lazy as _
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -27,6 +30,13 @@ DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 
+MESSAGE_TAGS = {
+    messages.DEBUG: "alert-secondary",
+    messages.INFO: "alert-info",
+    messages.SUCCESS: "alert-success",
+    messages.WARNING: "alert-warning",
+    messages.ERROR: "alert-danger",
+}
 
 # Application definition
 
@@ -41,18 +51,23 @@ INSTALLED_APPS = [
     "user",
     "events",
     "import_export",
+    "crispy_forms",
+    "crispy_bootstrap5",
 ]
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
+    "django.middleware.locale.LocaleMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
+
+CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 if DEBUG:
     INSTALLED_APPS.extend(["debug_toolbar"])
@@ -64,8 +79,8 @@ ROOT_URLCONF = "event_manager.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
-        "APP_DIRS": True,
+        "DIRS": [BASE_DIR / "event_manager" / "templates"],
+        "APP_DIRS": True,  # schaue in den Apps nach tamplates/
         "OPTIONS": {
             "context_processors": [
                 "django.template.context_processors.debug",
@@ -125,6 +140,11 @@ TIME_ZONE = "UTC"
 USE_I18N = True
 
 USE_TZ = True
+
+LANGUAGES = (
+    ("en", _("Englisch")),
+    ("de", _("Deutsch")),
+)
 
 
 # Static files (CSS, JavaScript, Images)

@@ -1,12 +1,14 @@
 from typing import Any
+
 from django.contrib import admin
-from django.http.request import HttpRequest
-from .models import Category, Event
 from django.contrib.auth import get_user_model
+from django.http.request import HttpRequest
 from django.utils.translation import gettext_lazy as _
-from import_export import resources, fields
+from import_export import fields, resources
 from import_export.admin import ImportExportModelAdmin
 from import_export.widgets import ForeignKeyWidget
+
+from .models import Category, Event
 
 # Register your models here.
 
@@ -50,6 +52,7 @@ class EventAdmin(EventImportAdmin):
         "is_active",
     )
     actions = "make_active", "make_inactive"
+    readonly_fields = ("slug", "author")
 
     def get_queryset(self, request: HttpRequest):
         """Nur Superuser sehen alle Einträge, andere sehen nur die eigenen"""
