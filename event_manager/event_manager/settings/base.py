@@ -199,26 +199,27 @@ LOGGING = {
             "formatter": "verbose",
         },
     },
+    # "root": {"handlers": ["console"], "level": "DEBUG"},
     "loggers": {
-        # "django": {
-        #     "handlers": ["console"],
-        #     "propagate": True,
-        # },
-        # "django.request": {
-        #     "handlers": ["console"],
-        #     "level": "ERROR",
-        #     "propagate": False,
-        # },
+        "django": {
+            "handlers": ["console"],
+            "propagate": True,
+        },
+        "django.request": {
+            "handlers": ["console"],
+            "level": "ERROR",
+            "propagate": False,
+        },
         "django.db.backends": {
             "handlers": ["console"],
             "level": "DEBUG",
-            "propagate": True,
+            "propagate": False,
         },
-        # "event_manager.events": {
-        #     "handlers": ["console"],
-        #     "level": "DEBUG",
-        #     "filters": ["require_debug_true"],
-        # },
+        "event_manager.events": {
+            "handlers": ["console"],
+            "level": "DEBUG",
+            "filters": ["require_debug_true"],
+        },
     },
 }
 

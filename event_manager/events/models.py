@@ -4,6 +4,12 @@ from django.db import models
 from django.urls import reverse
 from django.utils.text import slugify
 from django.utils.translation import gettext_lazy as _
+from events.managers import (
+    ActiveManager,
+    CategoryManager,
+    EnhancedManager,
+    EventQuerySet,
+)
 from events.validators import BadWordFilter, datetime_in_future
 
 # Create your models here.
@@ -28,6 +34,7 @@ class Category(DateTimeMixin):
     description = models.TextField(
         blank=True, null=True, help_text=_("Eine Beschreibung für die Kategorie")
     )
+    objects = CategoryManager()
 
     @property
     def number_events(self):
@@ -76,6 +83,9 @@ class Event(DateTimeMixin):
         Category, on_delete=models.CASCADE, related_name="events"
     )
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="events")
+    # objects = models.Manager()  # 1. Manager ist der defaulut Manager
+    objects = EnhancedManager().from_queryset(EventQuerySet)()
+    # active_objects = ActiveManager()
 
     class Meta:
         ordering = ["name"]

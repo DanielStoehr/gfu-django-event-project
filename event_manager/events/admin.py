@@ -56,7 +56,7 @@ class EventAdmin(EventImportAdmin):
 
     def get_queryset(self, request: HttpRequest):
         """Nur Superuser sehen alle Einträge, andere sehen nur die eigenen"""
-        qs = Event.objects.select_related("category", "author").all()
+        qs = Event.objects.all()
         if request.user.is_superuser:
             return qs
         return qs.filter(author=request.user)

@@ -30,7 +30,7 @@ class EventListView(ListView):
 
     model = Event
     context_object_name = "events"
-    queryset = Event.objects.select_related("category", "author")
+    queryset = Event.objects.all()
 
 
 class EventDetailView(DetailView):
