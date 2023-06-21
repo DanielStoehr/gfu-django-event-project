@@ -12,23 +12,28 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 
+import environ
 from django.contrib.messages import constants as messages
 from django.utils.translation import gettext_lazy as _
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
+env = environ.Env(DEBUG=(bool, False))
+
+environ.Env.read_env(BASE_DIR / ".env")
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-)((_yod4+1i%@&%cv=am75)bdms(rr7w@-42fojf1v6w$)@pel"
+SECRET_KEY = env("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env("DEBUG")
+LOG_LEVEL = env("LOG_LEVEL")
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = env.list("ALLOWED_HOSTS")
 
 MESSAGE_TAGS = {
     messages.DEBUG: "alert-secondary",
@@ -50,6 +55,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "user",
     "events",
+    "pages",
     "import_export",
     "crispy_forms",
     "crispy_bootstrap5",
@@ -68,11 +74,6 @@ MIDDLEWARE = [
 ]
 
 CRISPY_TEMPLATE_PACK = "bootstrap5"
-
-if DEBUG:
-    INSTALLED_APPS.extend(["debug_toolbar"])
-    MIDDLEWARE.extend(["debug_toolbar.middleware.DebugToolbarMiddleware"])
-    INTERNAL_IPS = ("127.0.0.1",)
 
 ROOT_URLCONF = "event_manager.urls"
 
@@ -98,15 +99,17 @@ WSGI_APPLICATION = "event_manager.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
-    }
-}
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.sqlite3",
+#         "NAME": BASE_DIR / "db.sqlite3",
+#     }
+# }
 
 # User
 AUTH_USER_MODEL = "user.User"
+LOGIN_REDIRECT_URL = "/events"
+LOGOUT_REDIRECT_URL = "/events"
 
 
 # Password validation
@@ -164,5 +167,54 @@ STORAGES = {
     # ...
     "staticfiles": {
         "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
+}
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "formatters": {
+        "verbose": {
+            "format": "{levelname} {asctime} {module} {process:d} {thread:d} {message}",
+            "style": "{",
+        },
+        "simple": {
+            "format": "{levelname} {message}",
+            "style": "{",
+        },
+    },
+    "filters": {
+        "require_debug_true": {
+            "()": "django.utils.log.RequireDebugTrue",
+        },
+    },
+    "handlers": {
+        "console": {
+            "level": "DEBUG",
+            "filters": ["require_debug_true"],
+            "class": "logging.StreamHandler",
+            "formatter": "verbose",
+        },
+    },
+    "loggers": {
+        # "django": {
+        #     "handlers": ["console"],
+        #     "propagate": True,
+        # },
+        # "django.request": {
+        #     "handlers": ["console"],
+        #     "level": "ERROR",
+        #     "propagate": False,
+        # },
+        "django.db.backends": {
+            "handlers": ["console"],
+            "level": "DEBUG",
+            "propagate": True,
+        },
+        # "event_manager.events": {
+        #     "handlers": ["console"],
+        #     "level": "DEBUG",
+        #     "filters": ["require_debug_true"],
+        # },
     },
 }

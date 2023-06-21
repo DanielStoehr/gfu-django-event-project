@@ -12,7 +12,10 @@ django==4.2.2
     # via
     #   -c requirements.txt
     #   django-debug-toolbar
+    #   django-extensions
 django-debug-toolbar==4.1.0
+    # via -r requirements-dev.in
+django-extensions==3.2.3
     # via -r requirements-dev.in
 factory-boy==3.2.1
     # via -r requirements-dev.in
@@ -27,7 +30,3 @@ sqlparse==0.4.4
     #   -c requirements.txt
     #   django
     #   django-debug-toolbar
-tzdata==2023.3
-    # via
-    #   -c requirements.txt
-    #   django

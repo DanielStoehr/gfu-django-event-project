@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+
+{% block head %}
+<h1>Home</h1>
+{% endblock %}
+
+{% block content %}
+<p>
+    <a href="{% url 'events:events' %}">zu den Events</a>
+</p>
+
+
+<h2>{% trans 'Top Events' %}</h2>
+<ul>
+{% for event in top_events %}
+    <li>{{ event }}</li>
+{% empty %}
+    <li>
+    {% trans 'Leider keine Top-Events vorhanden' %}
+    </li>
+{% endfor %}
+</ul>
+
+{% endblock %}

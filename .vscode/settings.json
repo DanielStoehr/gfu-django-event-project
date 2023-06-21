@@ -14,8 +14,9 @@
   "python.analysis.packageIndexDepths": [
     {
       "name": "django",
-      "depth": 5
+      "depth": 10
     }
   ],
   "python.analysis.indexing": true,
+  "python.defaultInterpreterPath": "/home/tsd1sw/dev/gfu-django-event-project/.envs/eventenv/bin"
 }

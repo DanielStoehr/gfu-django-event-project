@@ -19,9 +19,12 @@ from django.contrib import admin
 from django.urls import include, path
 
 urlpatterns = [
+    path("", include("pages.urls")),
     path("admin/", admin.site.urls),
     path("events/", include("events.urls")),
     path("i18n/", include("django.conf.urls.i18n")),
+    path("accounts/", include("user.urls")),
+    path("accounts/", include("django.contrib.auth.urls")),
 ]
 
 if settings.DEBUG:

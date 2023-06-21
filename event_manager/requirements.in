@@ -4,3 +4,4 @@ django-import-export
 django-crispy-forms
 crispy-bootstrap5
 python-gettext
+django-environ

@@ -2,3 +2,4 @@
 
 factory-boy
 django-debug-toolbar
+django-extensions
