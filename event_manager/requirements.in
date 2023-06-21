@@ -5,3 +5,7 @@ django-crispy-forms
 crispy-bootstrap5
 python-gettext
 django-environ
+djangorestframework
+drf-spectacular-sidecar
+drf-spectacular
+djangorestframework-camel-case
