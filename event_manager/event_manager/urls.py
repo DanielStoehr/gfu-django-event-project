@@ -17,6 +17,7 @@ Including another URLconf
 from django.conf import settings
 from django.contrib import admin
 from django.urls import include, path
+from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
 
 urlpatterns = [
     path("", include("pages.urls")),
@@ -28,6 +29,17 @@ urlpatterns = [
     path("accounts/", include("django.contrib.auth.urls")),
     path("api/users/", include("user.api.urls")),
     path("api/events/", include("events.api.urls")),
+    path("silk/", include("silk.urls", namespace="silk")),
+    path(
+        "schema/",
+        SpectacularAPIView.as_view(api_version="v1"),
+        name="schema",
+    ),
+    path(
+        "docs/",
+        SpectacularSwaggerView.as_view(url_name="schema"),
+        name="swagger-ui",
+    ),
 ]
 
 if settings.DEBUG:

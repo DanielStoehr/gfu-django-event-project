@@ -1,8 +1,11 @@
+from django.utils.decorators import method_decorator
+from django.views.decorators.cache import cache_page
 from events import models
-from rest_framework import authentication, exceptions, generics, response
+from rest_framework import authentication, exceptions, filters, generics, response
+from silk.profiling.profiler import silk_profile
 
 from . import serializers
-from .permissions import IsPublicOrAdmin
+from .permissions import IsPublicOrAdmin, WhiteListPermission
 
 
 class ServiceUnavailible(exceptions.APIException):
@@ -66,7 +69,11 @@ class CategoryUpdateAPIView(generics.RetrieveUpdateDestroyAPIView):
 class EventListAPIView(generics.ListCreateAPIView):
     # serializer_class = serializers.EventSerializer
     queryset = models.Event.objects.prefetch_related("reviews__author")
-    authentication_classes = [authentication.SessionAuthentication]
+    permission_classes = [IsPublicOrAdmin, WhiteListPermission]
+    # authentication_classes = [authentication.SessionAuthentication]
+    filter_backends = [filters.OrderingFilter, filters.SearchFilter]
+    ordering_fields = ["name", "sub_title"]
+    search_fiels = ["=category__name"]
 
     def get_serializer_class(self):
         if self.request.method == "POST":
@@ -78,3 +85,8 @@ class EventListAPIView(generics.ListCreateAPIView):
         author = self.request.user
         print(author)
         serializer.save(author=author)
+
+    # @method_decorator(cache_page(60)) # caching
+    @silk_profile()
+    def list(self, request, *args, **kwargs):
+        return super().list(request, *args, **kwargs)

@@ -12,6 +12,11 @@ category_urlpatterns = [
         views.CategoryListAPIView.as_view(),
         name="categories_list_create",
     ),
+    path(
+        "categories/<int:pk>",
+        views.CategoryUpdateAPIView.as_view(),
+        name="category_list_update",
+    ),
 ]
 
 urlpatterns = [*event_urlpatterns, *category_urlpatterns]

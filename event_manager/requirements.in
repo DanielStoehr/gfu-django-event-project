@@ -10,3 +10,5 @@ drf-spectacular-sidecar
 drf-spectacular
 djangorestframework-camel-case
 docutils
+locust
+django-silk

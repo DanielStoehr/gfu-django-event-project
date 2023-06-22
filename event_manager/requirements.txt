@@ -8,6 +8,22 @@ asgiref==3.7.2
     # via django
 attrs==23.1.0
     # via jsonschema
+autopep8==2.0.2
+    # via django-silk
+blinker==1.6.2
+    # via flask
+brotli==1.0.9
+    # via geventhttpclient
+certifi==2023.5.7
+    # via
+    #   geventhttpclient
+    #   requests
+charset-normalizer==3.1.0
+    # via requests
+click==8.1.3
+    # via flask
+configargparse==1.5.3
+    # via locust
 crispy-bootstrap5==0.7
     # via -r requirements.in
 defusedxml==0.7.1
@@ -20,6 +36,7 @@ django==4.2.2
     #   crispy-bootstrap5
     #   django-crispy-forms
     #   django-import-export
+    #   django-silk
     #   djangorestframework
     #   drf-spectacular
     #   drf-spectacular-sidecar
@@ -30,6 +47,8 @@ django-crispy-forms==2.0
 django-environ==0.10.0
     # via -r requirements.in
 django-import-export==3.2.0
+    # via -r requirements.in
+django-silk==5.0.3
     # via -r requirements.in
 djangorestframework==3.14.0
     # via
@@ -45,16 +64,53 @@ drf-spectacular-sidecar==2023.6.1
     # via -r requirements.in
 et-xmlfile==1.1.0
     # via openpyxl
+flask==2.3.2
+    # via
+    #   flask-basicauth
+    #   flask-cors
+    #   locust
+flask-basicauth==0.2.0
+    # via locust
+flask-cors==3.0.10
+    # via locust
+gevent==22.10.2
+    # via
+    #   geventhttpclient
+    #   locust
+geventhttpclient==2.0.9
+    # via locust
+gprof2dot==2022.7.29
+    # via django-silk
+greenlet==2.0.2
+    # via gevent
+idna==3.4
+    # via requests
 inflection==0.5.1
     # via drf-spectacular
+itsdangerous==2.1.2
+    # via flask
+jinja2==3.1.2
+    # via flask
 jsonschema==4.17.3
     # via drf-spectacular
+locust==2.15.1
+    # via -r requirements.in
 markuppy==1.14
     # via tablib
+markupsafe==2.1.3
+    # via
+    #   jinja2
+    #   werkzeug
+msgpack==1.0.5
+    # via locust
 odfpy==1.4.1
     # via tablib
 openpyxl==3.1.2
     # via tablib
+psutil==5.9.5
+    # via locust
+pycodestyle==2.10.0
+    # via autopep8
 pyrsistent==0.19.3
     # via jsonschema
 python-gettext==5.0
@@ -65,15 +121,42 @@ pyyaml==6.0
     # via
     #   drf-spectacular
     #   tablib
+pyzmq==25.1.0
+    # via locust
+requests==2.31.0
+    # via locust
+roundrobin==0.0.4
+    # via locust
+six==1.16.0
+    # via
+    #   flask-cors
+    #   geventhttpclient
 sqlparse==0.4.4
-    # via django
+    # via
+    #   django
+    #   django-silk
 tablib[html,ods,xls,xlsx,yaml]==3.5.0
     # via django-import-export
+typing-extensions==4.6.3
+    # via locust
 uritemplate==4.1.1
     # via drf-spectacular
+urllib3==2.0.3
+    # via requests
+werkzeug==2.3.6
+    # via
+    #   flask
+    #   locust
 whitenoise==6.5.0
     # via -r requirements.in
 xlrd==2.0.1
     # via tablib
 xlwt==1.3.0
     # via tablib
+zope-event==4.6
+    # via gevent
+zope-interface==6.0
+    # via gevent
+
+# The following packages are considered to be unsafe in a requirements file:
+# setuptools
