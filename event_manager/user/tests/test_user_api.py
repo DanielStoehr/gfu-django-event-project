@@ -16,6 +16,7 @@ class TestUser(APITestCase):
     def test_user_url(self):
         res = self.client.get(USER_URL)
         self.assertEqual(res.status_code, status.HTTP_200_OK)
+        self.assertNumQueries(1)
 
     def test_create_user(self):
         payload = {

@@ -1,10 +1,13 @@
-from webbrowser import get
-
 from events import models
-from rest_framework import authentication, generics, response
+from rest_framework import authentication, exceptions, generics, response
 
 from . import serializers
 from .permissions import IsPublicOrAdmin
+
+
+class ServiceUnavailible(exceptions.APIException):
+    status_code = 503
+    default_detail = "Something went wrong"
 
 
 def save_category(request_serializer):
@@ -71,6 +74,7 @@ class EventListAPIView(generics.ListCreateAPIView):
         return serializers.EventOutputSerializer
 
     def perform_create(self, serializer):
+        # raise ServiceUnavailible() #  eigene Exception
         author = self.request.user
         print(author)
         serializer.save(author=author)

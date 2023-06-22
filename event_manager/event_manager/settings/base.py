@@ -238,4 +238,5 @@ REST_FRAMEWORK = {
         "rest_framework.authentication.TokenAuthentication"
     ],
     "DEFAULT_PERMISSION_CLASSES": ["events.api.permissions.WhiteListPermission"],
+    "EXCEPTION_HANDLER": "event_manager.drf_exception_handler.api_exception_handler",
 }
