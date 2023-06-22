@@ -1,10 +1,11 @@
 import random
-import factory
 from datetime import timedelta
-from django.utils import timezone
 
+import factory
+from django.utils import timezone
 from user.factories import UserFactory
-from .models import Category, Event
+
+from .models import Category, Event, Review
 
 categories = [
     "Sports",
@@ -47,3 +48,13 @@ class EventFactory(factory.django.DjangoModelFactory):
         end_date=timezone.now() + timedelta(days=60),
         tzinfo=timezone.get_current_timezone(),
     )
+
+
+class ReviewFactory(factory.django.DjangoModelFactory):
+    class Meta:
+        model = Review
+
+    event = factory.SubFactory(EventFactory)
+    author = factory.SubFactory(UserFactory)
+    review = factory.Faker("paragraph", nb_sentences=1)
+    rating = factory.LazyAttribute(lambda _: random.choice(list(Review.Rating)))

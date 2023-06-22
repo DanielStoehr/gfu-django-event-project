@@ -114,3 +114,21 @@ class Event(DateTimeMixin):
             category=self.category, min_group=self.min_group
         )
         return related_events.exclude(pk=self.pk)[:10]
+
+
+class Review(DateTimeMixin):
+    class Rating(models.IntegerChoices):
+        BAD = 1
+        GOOD = 2
+        AWESOME = 3
+
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="reviews")
+    review = models.TextField(
+        blank=True,
+        null=True,
+    )
+    rating = models.PositiveIntegerField(choices=Rating.choices)
+    event = models.ForeignKey(Event, on_delete=models.CASCADE, related_name="reviews")
+
+    def __str__(self) -> str:
+        return f"{self.author} / {self.event}"

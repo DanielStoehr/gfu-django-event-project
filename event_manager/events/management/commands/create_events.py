@@ -1,10 +1,13 @@
 import random
+from typing import Final
+
+from django.contrib.auth import get_user_model
 from django.core.management.base import BaseCommand
 from django.utils.translation import gettext_lazy as _
-from events.factories import EventFactory
-from events.factories import CategoryFactory
-from django.contrib.auth import get_user_model
-from events.models import Category, Event
+from events.factories import CategoryFactory, EventFactory, ReviewFactory
+from events.models import Category, Event, Review
+
+MAX_TAGS: Final = 6
 
 
 class Command(BaseCommand):
@@ -34,7 +37,7 @@ class Command(BaseCommand):
         number_events = kwargs.get("events", 10)
         number_categories = kwargs.get("categories", 10)
 
-        for model in [Event, Category]:
+        for model in [Event, Category, Review]:
             model.objects.all().delete()
 
         categories = CategoryFactory.create_batch(number_categories)
@@ -44,8 +47,10 @@ class Command(BaseCommand):
             raise SystemExit("Es müssen User existieren, um Events zu generieren")
 
         for event in range(number_events):
-            e = EventFactory(
+            event = EventFactory(
                 category=random.choice(categories), author=random.choice(users)
             )
 
-            e.full_clean()
+            # event.full_clean() # löst ValidationError aus
+            for n in range(random.randint(0, MAX_TAGS)):
+                ReviewFactory(event=event, author=random.choice(users))

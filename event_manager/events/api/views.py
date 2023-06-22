@@ -1,7 +1,10 @@
+from webbrowser import get
+
 from events import models
-from rest_framework import generics, response
+from rest_framework import authentication, generics, response
 
 from . import serializers
+from .permissions import IsPublicOrAdmin
 
 
 def save_category(request_serializer):
@@ -23,6 +26,8 @@ class CategoryListAPIView(generics.ListCreateAPIView):
 
     serializer_class = serializers.CategorySerializer
     queryset = models.Category.objects.all()
+    permission_classes = [IsPublicOrAdmin]
+    authentication_classes = [authentication.SessionAuthentication]
 
     def create(self, request, *args, **kwargs):
         request_serializer = self.serializer_class(data=request.data)
@@ -39,6 +44,8 @@ class CategoryUpdateAPIView(generics.RetrieveUpdateDestroyAPIView):
 
     serializer_class = serializers.CategorySerializer
     queryset = models.Category.objects.all()
+    permission_classes = [IsPublicOrAdmin]
+    authentication_classes = [authentication.SessionAuthentication]
 
     def update(self, request, *args, **kwargs):
         category = self.get_object()
@@ -51,3 +58,19 @@ class CategoryUpdateAPIView(generics.RetrieveUpdateDestroyAPIView):
             category, data=request.data, partial=True
         )
         return save_category(request_serializer=request_serializer)
+
+
+class EventListAPIView(generics.ListCreateAPIView):
+    # serializer_class = serializers.EventSerializer
+    queryset = models.Event.objects.prefetch_related("reviews__author")
+    authentication_classes = [authentication.SessionAuthentication]
+
+    def get_serializer_class(self):
+        if self.request.method == "POST":
+            return serializers.EventInputSerializer
+        return serializers.EventOutputSerializer
+
+    def perform_create(self, serializer):
+        author = self.request.user
+        print(author)
+        serializer.save(author=author)

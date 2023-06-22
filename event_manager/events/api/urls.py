@@ -2,7 +2,9 @@ from django.urls import path
 
 from . import views
 
-event_urlpatterns = []
+event_urlpatterns = [
+    path("", views.EventListAPIView.as_view(), name="events_list_create")
+]
 
 category_urlpatterns = [
     path(
