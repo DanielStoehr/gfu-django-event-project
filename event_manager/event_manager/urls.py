@@ -20,12 +20,14 @@ from django.urls import include, path
 
 urlpatterns = [
     path("", include("pages.urls")),
+    path("admin/doc/", include("django.contrib.admindocs.urls")),
     path("admin/", admin.site.urls),
     path("events/", include("events.urls")),
     path("i18n/", include("django.conf.urls.i18n")),
     path("accounts/", include("user.urls")),
     path("accounts/", include("django.contrib.auth.urls")),
     path("api/users/", include("user.api.urls")),
+    path("api/events/", include("events.api.urls")),
 ]
 
 if settings.DEBUG:

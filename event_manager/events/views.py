@@ -26,6 +26,9 @@ class EventListView(ListView):
     """
     Zeige alle Events
     /events
+
+    ``Event``
+        An instance of :model:`events.Event`
     """
 
     model = Event
@@ -44,6 +47,15 @@ class EventDetailView(DetailView):
 
 
 class EventCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
+    """
+    Trage neuen Event in die DB :model:`events.Event`
+
+    **Context**
+
+    ``Event``
+        An instance of :model:`events.Event`
+    """
+
     model = Event
     form_class = EventForm
     success_message = _("Event wurde erfolgreich hinzugefügt!")
