@@ -21,7 +21,11 @@ certifi==2023.5.7
 charset-normalizer==3.1.0
     # via requests
 click==8.1.3
-    # via flask
+    # via
+    #   flask
+    #   mkdocs
+colorama==0.4.6
+    # via griffe
 configargparse==1.5.3
     # via locust
 crispy-bootstrap5==0.7
@@ -79,10 +83,14 @@ gevent==22.10.2
     #   locust
 geventhttpclient==2.0.9
     # via locust
+ghp-import==2.1.0
+    # via mkdocs
 gprof2dot==2022.7.29
     # via django-silk
 greenlet==2.0.2
     # via gevent
+griffe==0.29.1
+    # via mkdocstrings-python
 idna==3.4
     # via requests
 inflection==0.5.1
@@ -90,29 +98,60 @@ inflection==0.5.1
 itsdangerous==2.1.2
     # via flask
 jinja2==3.1.2
-    # via flask
+    # via
+    #   flask
+    #   mkdocs
+    #   mkdocstrings
 jsonschema==4.17.3
     # via drf-spectacular
 locust==2.15.1
     # via -r requirements.in
+markdown==3.3.7
+    # via
+    #   mkdocs
+    #   mkdocs-autorefs
+    #   mkdocstrings
+    #   pymdown-extensions
 markuppy==1.14
     # via tablib
 markupsafe==2.1.3
     # via
     #   jinja2
+    #   mkdocstrings
     #   werkzeug
+mergedeep==1.3.4
+    # via mkdocs
+mkdocs==1.4.3
+    # via
+    #   -r requirements.in
+    #   mkdocs-autorefs
+    #   mkdocstrings
+mkdocs-autorefs==0.4.1
+    # via mkdocstrings
+mkdocstrings[python]==0.22.0
+    # via
+    #   -r requirements.in
+    #   mkdocstrings-python
+mkdocstrings-python==1.1.2
+    # via mkdocstrings
 msgpack==1.0.5
     # via locust
 odfpy==1.4.1
     # via tablib
 openpyxl==3.1.2
     # via tablib
+packaging==23.1
+    # via mkdocs
 psutil==5.9.5
     # via locust
 pycodestyle==2.10.0
     # via autopep8
+pymdown-extensions==10.0.1
+    # via mkdocstrings
 pyrsistent==0.19.3
     # via jsonschema
+python-dateutil==2.8.2
+    # via ghp-import
 python-gettext==5.0
     # via -r requirements.in
 pytz==2023.3
@@ -120,7 +159,12 @@ pytz==2023.3
 pyyaml==6.0
     # via
     #   drf-spectacular
+    #   mkdocs
+    #   pymdown-extensions
+    #   pyyaml-env-tag
     #   tablib
+pyyaml-env-tag==0.1
+    # via mkdocs
 pyzmq==25.1.0
     # via locust
 requests==2.31.0
@@ -131,6 +175,7 @@ six==1.16.0
     # via
     #   flask-cors
     #   geventhttpclient
+    #   python-dateutil
 sqlparse==0.4.4
     # via
     #   django
@@ -143,6 +188,8 @@ uritemplate==4.1.1
     # via drf-spectacular
 urllib3==2.0.3
     # via requests
+watchdog==3.0.0
+    # via mkdocs
 werkzeug==2.3.6
     # via
     #   flask

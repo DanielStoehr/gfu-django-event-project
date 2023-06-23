@@ -261,3 +261,6 @@ SPECTACULAR_SETTINGS = {
 SILKY_PYTHON_PROFILER = True
 SILKY_PYTHON_PROFILER_BINARY = False
 SILKY_IGNORE_PATHS = ["/static"]
+
+# MKDOCS
+DOCS_DIR = BASE_DIR / "documentation/static/mkdocs_build"

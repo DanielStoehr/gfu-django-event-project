@@ -12,3 +12,5 @@ djangorestframework-camel-case
 docutils
 locust
 django-silk
+mkdocs
+mkdocstrings[python]
