@@ -5,6 +5,7 @@ from rest_framework import authentication, exceptions, filters, generics, respon
 from silk.profiling.profiler import silk_profile
 
 from . import serializers
+from .filters import EventFilterBackend
 from .permissions import IsPublicOrAdmin, WhiteListPermission
 
 
@@ -71,7 +72,7 @@ class EventListAPIView(generics.ListCreateAPIView):
     queryset = models.Event.objects.prefetch_related("reviews__author")
     permission_classes = [IsPublicOrAdmin, WhiteListPermission]
     # authentication_classes = [authentication.SessionAuthentication]
-    filter_backends = [filters.OrderingFilter, filters.SearchFilter]
+    filter_backends = [filters.OrderingFilter, filters.SearchFilter, EventFilterBackend]
     ordering_fields = ["name", "sub_title"]
     search_fiels = ["=category__name"]
 
