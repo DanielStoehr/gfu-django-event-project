@@ -14,3 +14,4 @@ locust
 django-silk
 mkdocs
 mkdocstrings[python]
+django-ninja

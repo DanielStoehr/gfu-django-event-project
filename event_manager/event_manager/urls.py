@@ -41,6 +41,7 @@ urlpatterns = [
         name="swagger-ui",
     ),
     path("documentation/", include("documentation.urls")),
+    path("api/tickets/", include("tickets.urls")),
 ]
 
 if settings.DEBUG:
